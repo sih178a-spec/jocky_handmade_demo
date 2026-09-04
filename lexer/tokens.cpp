@@ -1,5 +1,6 @@
 //file for the data type of token
 #include <string>
+#include <iostream>
 // enumerator for the types of token we gonna have
 enum class Token_type{
     EOF_TOK,
@@ -69,17 +70,16 @@ enum class Token_type{
     IMPORT,
 };
 
-template <typename... args>
-
 // the token structure
 struct Tokens{
     Token_type type;
     std::string data;
 
+    template <typename... Args>
     bool token_is_one_of(Args... args){
         return ((this-> type == args) || ...);
     }
-
+    void token_test();
 };
 
 std::string Token_to_string(Token_type type){
@@ -258,3 +258,11 @@ std::string Token_to_string(Token_type type){
     }
 }
 
+void Tokens::token_test(){
+    if(this->token_is_one_of(Token_type::NUMBER, Token_type::IDENTIFIIERS, Token_type::STRING)){
+        std::cout << Token_to_string(this->type) << " ("<<this->data << ")\n"; 
+    }
+    else{
+        std::cout << Token_to_string(this->type) <<"()\n";
+    }
+}
