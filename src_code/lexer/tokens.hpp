@@ -34,6 +34,7 @@ enum class Token_type{
 
     //SYMBOLS
     COLON,
+    DOUBLE_COLON,
     SEMI_COLON,
     QUESTION_MARK,
     AMPERSAND,
@@ -82,7 +83,7 @@ struct Tokens{
     void token_test();
 };
 
-std::string Token_to_string(Token_type type){
+inline std::string Token_to_string(Token_type type){
     switch(type){
         case Token_type::EOF_TOK:
             return "eof";
@@ -156,6 +157,9 @@ std::string Token_to_string(Token_type type){
         // symbols
         case Token_type::COLON:
             return ":";
+            break;
+        case Token_type::DOUBLE_COLON:
+            return "::";
             break;
         case Token_type::SEMI_COLON:
             return ";";
@@ -258,7 +262,7 @@ std::string Token_to_string(Token_type type){
     }
 }
 
-void Tokens::token_test(){
+inline void Tokens::token_test(){
     if(this->token_is_one_of(Token_type::NUMBER, Token_type::IDENTIFIIERS, Token_type::STRING)){
         std::cout << Token_to_string(this->type) << " ("<<this->data << ")\n"; 
     }
